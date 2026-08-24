@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actualizando Vacía tu Mochila</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Arial;background:#fbf4ef;color:#4a2b39;
+display:grid;place-items:center;min-height:90vh;margin:0;text-align:center;padding:24px}
+.box{max-width:480px;background:white;border:1px solid #ead8df;border-radius:22px;padding:28px}
+h1{font-size:25px}p{line-height:1.5;color:#755d68}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🎒 Actualizando Vacía tu Mochila</h1>
+<p>Estamos limpiando la versión anterior. En unos segundos abrirá automáticamente la versión más reciente.</p>
+<p id="msg">Actualizando…</p>
+</div>
+<script>
+(async()=>{
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.unregister()));
+    }
+    if('caches' in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.map(k=>caches.delete(k)));
+    }
+    document.getElementById('msg').textContent='✅ Listo. Abriendo v1.7…';
+  }catch(e){
+    document.getElementById('msg').textContent='Continuando con la actualización…';
+  }
+  setTimeout(()=>location.replace('./?v=1.7'),900);
+})();
+</script>
+</body>
+</html>
