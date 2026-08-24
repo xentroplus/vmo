@@ -32,30 +32,39 @@
 
     .print-branding{display:none}
     @media print{
-      @page{margin:14mm 14mm 17mm 14mm}
+      @page{size:auto;margin:7mm 8mm 8mm 8mm}
+      html,body{margin:0!important;padding:0!important;background:#fff!important}
+      body{font-size:11px!important}
       .print-branding{
         display:flex!important;
-        position:fixed;
-        left:0; right:0;
+        position:static!important;
         align-items:center;
         justify-content:space-between;
-        font-size:10px;
+        font-size:8.5px!important;
+        line-height:1.15!important;
         color:#6f5360;
         background:#fff;
         z-index:9999;
       }
       .print-branding.header{
-        top:0;
-        padding:0 0 7px 0;
+        padding:0 0 4px 0!important;
+        margin:0 0 5px 0!important;
         border-bottom:1px solid #d9c2cc;
         font-weight:700;
       }
       .print-branding.footer{
-        bottom:0;
-        padding:7px 0 0 0;
+        padding:4px 0 0 0!important;
+        margin:5px 0 0 0!important;
         border-top:1px solid #d9c2cc;
+        page-break-before:avoid!important;
+        break-before:avoid!important;
       }
-      body{padding-top:24px!important;padding-bottom:24px!important}
+      .card,.box,.result-card,.summary-card{
+        break-inside:avoid!important;
+        page-break-inside:avoid!important;
+      }
+      h1,h2,h3,p{margin-top:4px!important;margin-bottom:4px!important}
+      main,.wrap,.container{padding-top:0!important;padding-bottom:0!important;margin-top:0!important;margin-bottom:0!important}
     }
 
   </style>
@@ -70,7 +79,7 @@
     <span>Experiencia Vivencial Online</span>
     <span>Coach Ismael Andrade | Vacía tu Mochila</span>
   </div>
-<div class="app"><div class="top"><div class="brandmini"><img src="brand.png?v=1.8" alt="Vacía tu Mochila"><div><strong>Vacía tu Mochila</strong><div class="version">PWA v1.8</div></div></div><div class="version" id="statusMini">Guardado local</div></div><div class="stepnote" id="stepLabel"></div><div class="progress" id="progressWrap"><span id="progressBar"></span></div><main class="card" id="screen"></main></div>
+<div class="app"><div class="top"><div class="brandmini"><img src="brand.png?v=1.9" alt="Vacía tu Mochila"><div><strong>Vacía tu Mochila</strong><div class="version">PWA v1.9</div></div></div><div class="version" id="statusMini">Guardado local</div></div><div class="stepnote" id="stepLabel"></div><div class="progress" id="progressWrap"><span id="progressBar"></span></div><main class="card" id="screen"></main></div>
 <script>
 (()=>{
 const APP_KEY='vmo-state-v1',ACCESS_KEY='vmo-access-v1',PASS='vmo1';
@@ -92,7 +101,7 @@ function displayArea(){return state.area==='➕ Otra área'?(state.areaOther.tri
 function displayLoad(){return state.load==='➕ Otra'?(state.loadOther.trim()||'Otra'):state.load}
 function render(){progressUI();({login:renderLogin,cover:renderCover,privacy:renderPrivacy,areas:renderAreas,map:renderMap,chooseArea:renderChooseArea,chooseLoad:renderChooseLoad,q1:()=>renderTextQuestion('💭 ¿En qué situación sientes con mayor frecuencia esta carga?','q1','chooseLoad','q2'),q2:()=>renderTextQuestion('💭 Cuando esto ocurre, ¿qué sueles decirte a ti misma?','q2','q1','pause','Ej.: “Tengo que hacerlo”, “No puedo fallar”, “Qué van a pensar de mí”…'),pause:renderPause,discover:()=>renderTextQuestion('✨ ¿Qué descubriste o comprendiste sobre aquello que estabas cargando?','discover','pause','different'),different:()=>renderTextQuestion('🌱 ¿Qué te gustaría comenzar a hacer diferente?','different','discover','release'),release:()=>renderTextQuestion('🎒 ¿Qué quieres dejar de cargar de la misma manera?','release','different','action'),action:renderAction,summary:renderSummary}[state.step]||renderCover)()}
 function renderLogin(){screen.innerHTML=`<div class="hero">
-      <img src="brand.png?v=1.8" alt="Vacía tu Mochila">
+      <img src="brand.png?v=1.9" alt="Vacía tu Mochila">
       <h2>🔐 Acceso a la experiencia</h2>
       <p class="muted">Ingresa la clave compartida por Ismael.</p>
       <div class="field"><input id="pass" type="password" autocomplete="off" placeholder="Clave de acceso"></div>
@@ -100,7 +109,7 @@ function renderLogin(){screen.innerHTML=`<div class="hero">
       <div class="btnrow"><button id="loginBtn" class="primary">INGRESAR</button></div>
       </div></div>`;const go=()=>{if(document.getElementById('pass').value.trim()===PASS){localStorage.setItem(ACCESS_KEY,'1');state.step='cover';save();render()}else document.getElementById('err').textContent='⚠️ La clave ingresada no es correcta. Inténtalo nuevamente.'};document.getElementById('loginBtn').addEventListener('click',go);document.getElementById('pass').addEventListener('keydown',e=>{if(e.key==='Enter')go()})}
 function renderCover(){screen.innerHTML=`<div class="hero">
-      <img src="brand.png?v=1.8" alt="Vacía tu Mochila">
+      <img src="brand.png?v=1.9" alt="Vacía tu Mochila">
       <h1>🎒 VACÍA TU MOCHILA</h1>
       <h3>Mi Mochila Hoy</h3>
       <p class="lead">Un espacio para detenerte, observar lo que estás cargando y elegir conscientemente por dónde quieres comenzar.</p>
@@ -117,6 +126,6 @@ function renderTextQuestion(q,key,back,next,hint=''){screen.innerHTML=`<h2>${q}<
 function renderPause(){screen.innerHTML=`<div class="pause"><div class="big">🧘</div><h2>Ahora deja tu teléfono a un lado</h2><p>Has identificado algo que quieres mirar.</p><p>🎧 A partir de aquí, déjate acompañar por mi voz.</p><p class="muted">No necesitas hacer nada más en la aplicación hasta que te indique que volvamos.</p><p><b>Deja tu teléfono a un lado y ponte cómoda. 💛</b></p></div>${nav('q2','discover','HE TERMINADO EL EJERCICIO →')}`;bindNav('q2','discover')}
 function renderAction(){screen.innerHTML=`<h2>👣 Mi primer paso</h2><p>No necesitas cambiarlo todo hoy.</p><p><b>¿Qué pequeña acción puedes realizar en las próximas 48 horas que dependa únicamente de ti?</b></p><div class="field"><textarea id="answer" placeholder="Opcional">${esc(state.action)}</textarea></div><div id="promptBox" class="notice hidden">💛 ¿Quieres regalarte unos segundos más para pensar en una pequeña acción?<div class="btnrow"><button id="writeBtn" class="secondary">QUIERO ESCRIBIRLA</button><button id="continueBtn" class="primary">PREFIERO CONTINUAR</button></div></div><div class="btnrow"><button id="backBtn" class="secondary">← ANTERIOR</button><button id="finishBtn" class="primary">FINALIZAR ✨</button></div>`;document.getElementById('answer').addEventListener('input',e=>{state.action=e.target.value;save()});document.getElementById('backBtn').addEventListener('click',()=>setStep('release'));document.getElementById('finishBtn').addEventListener('click',()=>{if(state.action.trim())setStep('summary');else document.getElementById('promptBox').classList.remove('hidden')});document.getElementById('writeBtn').addEventListener('click',()=>{document.getElementById('promptBox').classList.add('hidden');document.getElementById('answer').focus()});document.getElementById('continueBtn').addEventListener('click',()=>setStep('summary'))}
 function renderSummary(){const items=[['Hoy elegí mirar',displayArea()],['Reconocí que estaba cargando',displayLoad()],['Descubrí',state.discover],['Quiero comenzar a soltar',state.release],['🌱 Mi primer paso será',state.action]].filter(x=>x[1]&&String(x[1]).trim());screen.innerHTML=`<div class="print-title hidden"><h1>Vacía tu Mochila</h1><p>Mi reflexión personal</p></div><h2>🎒 MI PRIMER PASO</h2><div class="summary">${items.map(([k,v])=>`<div class="summary-item"><b>${k}</b><div>${esc(v)}</div></div>`).join('')}</div><div class="pause" style="margin-top:18px"><p><b>💛 No necesitas vaciar toda tu mochila hoy.</b></p><p>✨ Hoy elegiste comenzar por algo.</p></div><div class="btnrow no-print"><button id="restartBtn" class="secondary">🔄 COMENZAR DE NUEVO</button><button id="printBtn" class="primary">📄 GUARDAR MI REFLEXIÓN</button></div>`;document.getElementById('printBtn').addEventListener('click',()=>window.print());document.getElementById('restartBtn').addEventListener('click',()=>{if(confirm('¿Deseas borrar tus respuestas y comenzar de nuevo?')){const a=localStorage.getItem(ACCESS_KEY);localStorage.removeItem(APP_KEY);if(a)localStorage.setItem(ACCESS_KEY,'1');state=defaultState();state.step='cover';save();render()}})}
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=1.8',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}));render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=1.9',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}));render();
 })();
 </script></body></html>

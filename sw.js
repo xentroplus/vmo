@@ -1,9 +1,9 @@
-const CACHE = 'vmo-pwa-v1.8';
+const CACHE = 'vmo-pwa-v1.9';
 const STATIC = [
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
-  './brand.png?v=1.8',
+  './brand.png?v=1.9',
   './social-preview-v1.7.jpg'
 ];
 
