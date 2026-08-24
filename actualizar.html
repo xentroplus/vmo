@@ -28,11 +28,11 @@ h1{font-size:25px}p{line-height:1.5;color:#755d68}
       const keys=await caches.keys();
       await Promise.all(keys.map(k=>caches.delete(k)));
     }
-    document.getElementById('msg').textContent='✅ Listo. Abriendo v1.7…';
+    document.getElementById('msg').textContent='✅ Listo. Abriendo v1.8…';
   }catch(e){
     document.getElementById('msg').textContent='Continuando con la actualización…';
   }
-  setTimeout(()=>location.replace('./?v=1.7'),900);
+  setTimeout(()=>location.replace('./?v=1.8'),900);
 })();
 </script>
 </body>

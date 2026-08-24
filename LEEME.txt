@@ -1,0 +1,11 @@
+VACÍA TU MOCHILA - PWA v1.1
+
+Clave inicial: vmo1
+
+Publicación: subir todos los archivos a la raíz de un repositorio GitHub Pages.
+
+Notas:
+- Las respuestas se guardan únicamente en localStorage del dispositivo.
+- No existe backend ni envío de datos.
+- La clave se recuerda en el dispositivo una vez validada.
+- “Guardar mi reflexión” abre la vista de impresión para guardar como PDF.
