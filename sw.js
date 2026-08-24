@@ -1,4 +1,4 @@
-const CACHE = 'vmo-pwa-v1.4';
+const CACHE = 'vmo-pwa-v1.5';
 const ASSETS = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./brand.png',
   './coach-logo.png',
   './social-preview-v1.2.jpg'];
